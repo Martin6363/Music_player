@@ -20,6 +20,20 @@ body {
     background-position: center;
 }
 
+.wrapper_animate {
+    animation: background_animate .3s both;
+}
+
+@keyframes background_animate {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
 .wrapper::before {
     content: "";
     position: absolute;

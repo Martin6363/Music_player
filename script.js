@@ -17,6 +17,9 @@ const playerDiv = document.getElementById('player');
 const menuBtn = document.getElementById("menu-btn");
 const menuTrackList = document.getElementById("menu-track-list");
 
+
+// Image draggable
+playerImg.draggable = false;
 // Is track playing
 let trackPlaying = false;
 // Is the volume muted
@@ -40,48 +43,57 @@ menuBtn.onclick = function() {
 // All Music
 let tracks = [
     {
+        id: Math.random(),
         music: "Arthur Meschian-Zarmanum_em",
         artist: "Artur Meschian",
         image: "Meschian.jpg"
     },
     {
+        id: Math.random(),
         music: "DAN BALAN-Люби",
         artist: "DAN BALAN",
         image: "danBalan.jpg"
     },
     {
+        id: Math.random(),
         music: "Dan Balan & Vera Brezhneva - Petals of tears",
         artist: "Dan Balan & Vera Brezhneva",
         image: "Dan_Balan_2.jpg"
     },
     {
+        id: Math.random(),
         music: "Arabic Remix Mawjou Galbi",
         artist: "Arabic Remix - Mawjou Galbi",
         image: "woman-img2.jpg"
     },
 
     {
+        id: Math.random(),
         music: "АРТУР САРКИСЯН - _РАНИЛА_ (ПРЕМЬЕРА КЛИПА)",
         artist: "АРТУР САРКИСЯН - РАНИЛА",
         image: "artur_sargisyan.jpg"
     },       
     
     {
+        id: Math.random(),
         music: "bomb_remix",
         artist: "Rap REMIX",
         image: "mercedes.jpg"
     },
     {
+        id: Math.random(),
         music: "Artem Valter - Es Qo Sirov (Safaryan Remix) 2023",
         artist: "Artem Valter",
         image: "woman-img1.jpg"
     },
     {
+        id: Math.random(),
         music: "Arshavir_Martirosyan_DU_CHKAS",
         artist: "Arshavir Martirosyan",
         image: "music_img1.jpg",
     },
     {
+        id: Math.random(), 
         music: "AKSA_vor",
         artist: "Aksa",
         image: "music_img2.jpg"
@@ -134,7 +146,9 @@ function loadTrack () {
     audio.load();
     trackTitle.innerHTML = tracks[trackId].artist;
     playerImg.src = `./img/${tracks[trackId].image}`;
+
     wrapper.style.backgroundImage = `url(./img/${tracks[trackId].image}`;
+
     progress.style.width = 0;
     thumb.style.left = 0;
     if (!tracks[trackId].image) {
@@ -145,6 +159,21 @@ function loadTrack () {
 loadTrack();
 
 
+function nextTrack () {
+    trackId++
+    if (trackId > tracks.length - 1) {
+        trackId = 0;
+    }
+    loadTrack();
+    switchTrack()
+    wrapper.classList.add("wrapper_animate");
+
+    setTimeout(() => {
+        wrapper.classList.remove("wrapper_animate");
+    }, 500);
+}
+
+
 btnPrev.addEventListener('click', () => {
     trackId--;
 
@@ -153,22 +182,17 @@ btnPrev.addEventListener('click', () => {
     }
     loadTrack()
     switchTrack();
+    wrapper.classList.add("wrapper_animate");
+
+    setTimeout(() => {
+        wrapper.classList.remove("wrapper_animate");
+    }, 300);
 })
 
 
 btnNext.addEventListener('click', nextTrack);
 
-
-function nextTrack () {
-    trackId++
-    if (trackId > tracks.length - 1) {
-        trackId = 0;
-    }
-    loadTrack();
-    switchTrack()
-}
-
-// if the song survives the next one will come
+// if the song ends, the next one will come
 audio.addEventListener('ended', nextTrack)
 
 
@@ -257,10 +281,11 @@ volumeIcon.onclick = function () {
 function createTrackList (array) {
     return array.map((elem, i) => {
         return `
-            <div class="list-tracks-block" onclick="menuTrack(${i})">
-                <div class="remove-track" onclick="removeTrack(${i})"><i class="fa-sharp fa-solid fa-xmark"></i></div>
+            <div class="list-tracks-block" onclick="menuTrack(${elem.id})">
+                <div class="remove-track" onclick="removeTrack(${elem.id})"><i class="fa-sharp fa-solid fa-xmark"></i></div>
                 ${indexTrack(i)}.<h4>${elem.artist}</h4>
             </div>
+        
         `
     });
 }
@@ -285,16 +310,16 @@ function menuList () {
 
 
 // Menu all tracks
-function menuTrack (index) {
-    if (tracks[index] && tracks[index].music) {
-        let track = tracks[index];
-        audio.src = `./tracks/${track.music}.mp3`;
-        trackTitle.innerHTML = track.artist;
-        playerImg.src = `./img/${track.image}`;
-        wrapper.style.backgroundImage = `url(./img/${track.image}`;
-        playerDiv.classList.add("rotateAnimate");
-        playTrack();
-        audio.play();
+function menuTrack (trackId) {
+    const track = tracks.find((elem) => elem.id === trackId);
+    if (track && track.music) {
+      audio.src = `./tracks/${track.music}.mp3`;
+      trackTitle.innerHTML = track.artist;
+      playerImg.src = `./img/${track.image}`;
+      wrapper.style.backgroundImage = `url(./img/${track.image}`;
+      playerDiv.classList.add("rotateAnimate");
+      playTrack();
+      audio.play();
     } else if (tracks.length === 0) {
         wrapper.style.background = '#26282c';
         playerImg.src = "./img/disk-img.png"
@@ -313,29 +338,7 @@ function menuTrack (index) {
 }
 
 
-function removeTrack (i) {
-    tracks.splice(i, 1)
-    console.log(tracks);
-    
+function removeTrack(id) {
+    tracks = tracks.filter((elem) => elem.id !== id);
     menuList();
-}
-
-
-function calculatePurchaseAndSale(price, quantity) {
-    const purchaseAmount = price * quantity;
-    const saleAmount = purchaseAmount * 1.1; // Assuming a 10% profit margin
-  
-    return { purchase: purchaseAmount, sale: saleAmount };
   }
-  
-  // Input values
-  const price = 40; // Price per unit
-  const quantity = 100; // Quantity of items
-  
-  // Calculate purchase and sale amounts
-  const { purchase, sale } = calculatePurchaseAndSale(price, quantity);
-  
-  // Output the results
-  console.log(`Purchase amount: $${purchase}`);
-  console.log(`Sale amount: $${sale}`);
-  
