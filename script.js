@@ -17,7 +17,6 @@ const playerDiv = document.getElementById('player');
 const menuBtn = document.getElementById("menu-btn");
 const menuTrackList = document.getElementById("menu-track-list");
 
-
 // Image draggable
 playerImg.draggable = false;
 // Is track playing
@@ -42,6 +41,18 @@ menuBtn.onclick = function() {
 
 // All Music
 let tracks = [
+    {
+        id: Math.random(),
+        music: "Alan Walker - Faded",
+        artist: "Alan Walker - Faded",
+        image: "alan_walker_faded.jpg"
+    },
+    {
+        id: Math.random(),
+        music: "Alan Walker, Sabrina Carpenter & Farruko  - On My Way",
+        artist: "Alan Walker Sabrina Carpenter & Farruko - On My Way",
+        image: "Alan-Walker.jpg"
+    },
     {
         id: Math.random(),
         music: "Arthur Meschian-Zarmanum_em",
@@ -283,7 +294,7 @@ function createTrackList (array) {
         return `
             <div class="list-tracks-block" onclick="menuTrack(${elem.id})">
                 <div class="remove-track" onclick="removeTrack(${elem.id})"><i class="fa-sharp fa-solid fa-xmark"></i></div>
-                ${indexTrack(i)}.<h4>${elem.artist}</h4>
+                ${indexTrack(i)}.<h4 class="list_text" title="${elem.artist}">${elem.artist}</h4>
             </div>
         
         `
@@ -291,6 +302,14 @@ function createTrackList (array) {
 }
 menuList();
 
+let listText = document.getElementsByClassName('list_text');
+for (let i = 0; i < listText.length; i++) {
+    let str = listText[i].textContent;
+    if (str.length > 35) {
+        listText[i].textContent = str.substring(0, 35) + '...';
+        listText[i].style.mask = "linear-gradient(90deg, white, white 20%, white 80%, transparent)";
+    }
+}
 
 // Check index number 0-9 
 function indexTrack (index) {

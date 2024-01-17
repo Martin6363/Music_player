@@ -214,10 +214,20 @@ body {
     }
 }
 
-h2 {
+.track-title {
     margin: 1em 0 0.3em 0;
     overflow: hidden;
     font-size: 100%;
+    width: 60%;
+    -webkit-mask: linear-gradient(
+        90deg,
+        transparent,
+        white 20%,
+        white 80%,
+        transparent
+    );
+    mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+    user-select: none;
 }
 
 .timeline-slider small {
