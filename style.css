@@ -78,8 +78,7 @@ body {
     gap: 5px;
     align-items: center;
     padding: 15px;
-    transition: all 0.3s ease-out;
-    scroll-behavior: smooth;
+    transition: all 0.2s ease;
     overflow-x: hidden;
 }
 
@@ -179,6 +178,13 @@ body {
 
 .player .menu-btn:hover {
     background: linear-gradient(60deg, #1e1f23, #2e3137);
+}
+
+.img_box {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .player-img {
@@ -380,7 +386,15 @@ body {
 }
 
 @media screen and (max-width: 700px){
+    .player {
+        width: 100% !important;
+        height: 100% !important;
+    }
     .range-slider {
         width: 100%;
+    }
+    .player-img {
+        width: 13em;
+        height: 13em;
     }
 }
