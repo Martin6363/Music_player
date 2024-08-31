@@ -43,6 +43,24 @@ menuBtn.onclick = function() {
 let tracks = [
     {
         id: Math.random(),
+        music: "Karush & Gaya Harutyunyan Du mer ser moracar 2024",
+        artist: "Karush & Gaya Harutyunyan - Du mer ser moracar 2024",
+        image: "karush_gaya_du_mer_sery_uracar.jpg",
+    },
+    {
+        id: Math.random(), 
+        music: "Ваграм Вазян - Забыли",
+        artist: "Ваграм Вазян - Забыли",
+        image: "varham_vazyan.jpg"
+    },
+    {
+        id: Math.random(), 
+        music: "Alida - E vuaj",
+        artist: "Alida - E vuaj",
+        image: "alida_e_vuaj.jpg"
+    },
+    {
+        id: Math.random(),
         music: "Alan Walker - Faded",
         artist: "Alan Walker - Faded",
         image: "alan_walker_faded.jpg"
@@ -56,13 +74,13 @@ let tracks = [
     {
         id: Math.random(),
         music: "Arthur Meschian-Zarmanum_em",
-        artist: "Artur Meschian",
+        artist: "Arthur Meschian - Zarmanum_em",
         image: "Meschian.jpg"
     },
     {
         id: Math.random(),
         music: "DAN BALAN-Люби",
-        artist: "DAN BALAN",
+        artist: "DAN BALAN - Люби",
         image: "danBalan.jpg"
     },
     {
@@ -102,12 +120,6 @@ let tracks = [
         music: "Arshavir_Martirosyan_DU_CHKAS",
         artist: "Arshavir Martirosyan",
         image: "music_img1.jpg",
-    },
-    {
-        id: Math.random(), 
-        music: "AKSA_vor",
-        artist: "Aksa",
-        image: "music_img2.jpg"
     }
 ]
 
